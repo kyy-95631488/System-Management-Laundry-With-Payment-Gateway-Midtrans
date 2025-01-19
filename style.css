@@ -1,0 +1,119 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: poppins;
+}
+/* NAVBAR */
+.navbar-brand {
+  color: #ff5c00;
+  font-weight: 600;
+  font-size: 29px;
+  line-height: 44px;
+  letter-spacing: 0.1em;
+}
+.navbar-brand span {
+  color: #000000;
+}
+.navbar-nav {
+  gap: 25px;
+}
+.navbar-nav li {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 30px;
+}
+/* NAVBAR END */
+
+/* HERO */
+.hero {
+  background-image: url(assets/jumbotron.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+}
+.hero-text {
+  padding-top: 8rem;
+  padding-right: 5rem;
+}
+.hero-text span {
+  color: #ff5c00;
+}
+/* HERO END */
+
+/* SERVICES */
+.services {
+  padding-top: 8rem;
+}
+
+.box {
+  background: #f5f5fa;
+  margin: 10px 0px;
+  text-align: center;
+  border-radius: 20px;
+  height: 200px;
+}
+.gambar1 {
+  padding-top: 3rem;
+  align-items: center;
+}
+.gambar2 {
+  padding-top: 3.5rem;
+  align-items: center;
+}
+.gambar3 {
+  padding-top: 3rem;
+  align-items: center;
+}
+.gambar4 {
+  padding-top: 3rem;
+  align-items: center;
+}
+.gambar5 {
+  padding-top: 3rem;
+  align-items: center;
+}
+
+.JualBeli {
+  padding-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+.Support {
+  padding-top: 29px;
+  font-weight: bold;
+  text-align: center;
+}
+.Harga {
+  padding-top: 29px;
+  font-weight: bold;
+  text-align: center;
+}
+.Pemesanan {
+  padding-top: 29px;
+  font-weight: bold;
+  text-align: center;
+}
+.Kualitas {
+  padding-top: 29px;
+  font-weight: bold;
+  text-align: center;
+}
+/* SERVICES END */
+.Product {
+  padding-top: 10rem;
+  text-align: center;
+}
+.rectangle {
+  width: 30%;
+  height: 10px;
+  background: #ff5c00;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  position: inline-block;
+  margin-left: 24.4rem;
+  border-radius: 10px;
+}
