@@ -44,6 +44,18 @@
     $result = $stmt->get_result();
 ?>
 
+<style>
+    .status-dibayar {
+        color: green;
+    }
+    .status-pending {
+        color: orange;
+    }
+    .status-gagal {
+        color: red;
+    }
+</style>
+
 <div class="panel-header bg-primary-gradient">
     <div class="page-inner py-5">
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
@@ -90,7 +102,19 @@
                                             <td><?= $row['nama_pelanggan'] ?></td>
                                             <td><?= $row['status_orderan'] ?></td>
                                             <td><?= number_format($row['total_harga'], 2, ',', '.') ?></td>
-                                            <td><?= $row['status_bayar'] ?></td>
+                                            <td class="
+                                                <?php
+                                                    if ($row['status_bayar'] === 'Dibayar') {
+                                                        echo 'status-dibayar';
+                                                    } elseif ($row['status_bayar'] === 'Pending') {
+                                                        echo 'status-pending';
+                                                    } elseif ($row['status_bayar'] === 'Gagal') {
+                                                        echo 'status-gagal';
+                                                    }
+                                                ?>
+                                            ">
+                                                <?= $row['status_bayar'] ?>
+                                            </td>
                                             <td><?= $row['tgl'] ?></td>
                                             <td><?= $row['batas_waktu'] ?></td>
                                             <td><?= $row['tgl_pembayaran'] ?></td>

@@ -25,7 +25,7 @@ if (isset($_POST['btn-simpan'])) {
     // Check if password is being updated
     if (!empty($_POST['password'])) {
         // Generate a random salt
-        $salt = bin2hex(random_bytes(16)); // 16 bytes = 32 hex characters
+        $salt = bin2hex(random_bytes(32)); // 16 bytes = 32 hex characters
         $password = hash('sha512', $_POST['password'] . $salt); // Combine password + salt
         $query = "UPDATE user 
                   SET nama_user = '$nama', 

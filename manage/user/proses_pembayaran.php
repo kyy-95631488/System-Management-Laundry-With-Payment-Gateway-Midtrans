@@ -108,12 +108,32 @@
         ]
     ];
 
+    // Ambil data pelanggan dan email dari database
+    $query = "
+    SELECT p.id_pelanggan, p.nama_pelanggan, p.telp_pelanggan, p.alamat_pelanggan, u.email
+    FROM pelanggan p
+    JOIN user u ON p.id_pelanggan = u.id_user
+    WHERE p.id_pelanggan = '$id_pelanggan'
+    ";
+    
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $customer_data = mysqli_fetch_assoc($result);
+        $nama_pelanggan = $customer_data['nama_pelanggan'];
+        $telp_pelanggan = $customer_data['telp_pelanggan'];
+        $email = $customer_data['email'];
+    } else {
+        echo "<p>Data pelanggan tidak ditemukan.</p>";
+            exit;
+    }
+
     // Informasi pelanggan
     $customer_details = [
-        'first_name' => 'Customer', // Ubah sesuai data pelanggan
-        'last_name' => 'Name',
-        'email' => 'customer@example.com', // Ubah sesuai data pelanggan
-        'phone' => '08123456789', // Ubah sesuai data pelanggan
+        'first_name' => $nama_pelanggan, // Nama depan pelanggan
+        'last_name' => '', // Jika tidak ada nama belakang, bisa dikosongkan
+        'email' => $email, // Email pelanggan
+        'phone' => $telp_pelanggan, // Telepon pelanggan
     ];
 
     $params = [

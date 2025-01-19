@@ -23,7 +23,7 @@
     <title>Mikada Laundry</title>
 
     <!-- favicon -->
-    <link rel="icon" href="../admin/assets/img/Laundry.png" type="image/x-icon" />
+    <link rel="icon" href="../manage/assets/img/Laundry.png" type="image/x-icon" />
 
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -84,9 +84,9 @@
                             <a href="./logout/" class="block py-2 px-3 text-lg font-bold text-red-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-red-700" onclick="return confirm('Apakah anda yakin ingin keluar?');">LOGOUT</a>
                         </li>
                         <?php if ($_SESSION['role'] == 'admin'): ?>
-                            <li><a href="./admin/admin/" class="block py-2 px-3 text-lg font-bold text-sky-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-700">DASHBOARD ADMIN</a></li>
-                        <?php elseif ($_SESSION['role'] == 'user'): ?> -->
-                            <li><a href="./admin/user/" class="block py-2 px-3 text-lg font-bold text-sky-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-700">DASHBOARD USER</a></li>
+                            <li><a href="./manage/admin/" class="block py-2 px-3 text-lg font-bold text-sky-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-700">DASHBOARD ADMIN</a></li>
+                        <?php elseif ($_SESSION['role'] == 'user'): ?>
+                            <li><a href="./manage/user/" class="block py-2 px-3 text-lg font-bold text-sky-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-700">DASHBOARD USER</a></li>
                         <?php endif; ?>
                     <?php else: ?>
                         <li><a href="./login/" class="block py-2 px-3 text-lg font-bold text-sky-700 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-sky-700">SIGN IN</a></li>

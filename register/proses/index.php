@@ -27,8 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-    // Hash password before saving
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    // Generate a random salt
+    $salt = bin2hex(random_bytes(32)); // Generate a 32-byte salt
+
+    // Hash password with SHA-512 and the salt
+    $hashed_password = hash('sha512', $password . $salt);
 
     // Set default role and outlet_id
     $role = 'user';
@@ -42,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: ../?message=Username or email already taken&status=error");
         exit();
     } else {
-        // Insert user into the database
-        $insertQuery = "INSERT INTO user (nama_user, username, email, password, outlet_id, role) 
-                        VALUES ('$full_name', '$username', '$email', '$hashed_password', '$outlet_id', '$role')";
+        // Insert user into the database, storing the salt along with the hash
+        $insertQuery = "INSERT INTO user (nama_user, username, email, password, salt, outlet_id, role) 
+                        VALUES ('$full_name', '$username', '$email', '$hashed_password', '$salt', '$outlet_id', '$role')";
 
         if (mysqli_query($conn, $insertQuery)) {
             header("Location: ../?message=Registration successful, please login&status=success");
