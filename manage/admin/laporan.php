@@ -2,15 +2,26 @@
 $title = 'Data Laporan';
 require 'koneksi.php';
 
-$id_outlet = $_SESSION['outlet_id'];
+// Check user role (Assuming session holds the role data)
+$user_role = $_SESSION['role']; // Assuming 'role' is stored in the session (admin or user)
 
-$query = "SELECT transaksi.*, pelanggan.nama_pelanggan, detail_transaksi.total_harga, detail_transaksi.total_bayar, outlet.nama_outlet,
-          transaksi.biaya_tambahan, transaksi.pajak, transaksi.diskon
-          FROM transaksi 
-          INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
-          INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi 
-          INNER JOIN outlet ON outlet.id_outlet = transaksi.outlet_id 
-          WHERE transaksi.outlet_id = '$id_outlet'";
+if ($user_role == 'admin') {
+    // Admin can see all transactions
+    $query = "SELECT transaksi.*, pelanggan.nama_pelanggan, detail_transaksi.total_harga, detail_transaksi.total_bayar,
+              transaksi.biaya_tambahan, transaksi.pajak, transaksi.diskon
+              FROM transaksi 
+              INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
+              INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi";
+} else if ($user_role == 'user') {
+    // Users can see only their own transactions, assuming user is identified by id_pelanggan
+    $id_pelanggan = $_SESSION['id_pelanggan']; // Assuming 'id_pelanggan' is stored in the session
+    $query = "SELECT transaksi.*, pelanggan.nama_pelanggan, detail_transaksi.total_harga, detail_transaksi.total_bayar,
+              transaksi.biaya_tambahan, transaksi.pajak, transaksi.diskon
+              FROM transaksi 
+              INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
+              INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi
+              WHERE transaksi.id_pelanggan = '$id_pelanggan'";
+}
 
 $data = mysqli_query($conn, $query);
 
@@ -56,7 +67,6 @@ require 'header.php';
                                     <th>Status</th>
                                     <th>Pembayaran</th>
                                     <th>Total</th>
-                                    <th>Outlet Pembayaran</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,11 +84,10 @@ require 'header.php';
                                             <td><?= $trans['status']; ?></td>
                                             <td><?= $trans['status_bayar']; ?></td>
                                             <td><?= 'Rp ' . number_format($total); ?></td>
-                                            <td><?= $trans['nama_outlet']; ?></td>
                                         </tr>
                                 <?php }
                                 } else {
-                                    echo '<tr><td colspan="7">Tidak ada data transaksi untuk outlet ini.</td></tr>';
+                                    echo '<tr><td colspan="6">Tidak ada data transaksi.</td></tr>';
                                 }
                                 ?>
                             </tbody>

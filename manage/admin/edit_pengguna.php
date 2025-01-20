@@ -2,25 +2,18 @@
 $title = 'Edit Data Pengguna';
 require 'koneksi.php';
 
-$role = [
-    'admin',
-    // 'owner',
-    // 'kasir'
-];
+// Ambil role yang ada di database
+$roleQuery = "SELECT DISTINCT role FROM user";
+$roleResult = mysqli_query($conn, $roleQuery);
 
 $id_user = $_GET['id'];
 $query = "SELECT * FROM user WHERE id_user = '$id_user'";
 $queryedit = mysqli_query($conn, $query);
 
-// Fetch outlets from database
-$query_outlet = "SELECT id_outlet, nama_outlet FROM outlet";
-$outlet_result = mysqli_query($conn, $query_outlet);
-
 if (isset($_POST['btn-simpan'])) {
     $nama = $_POST['nama_user'];
     $username = $_POST['username'];
     $role = $_POST['role'];
-    $id_outlet = $_POST['id_outlet'];
 
     // Check if password is being updated
     if (!empty($_POST['password'])) {
@@ -32,15 +25,13 @@ if (isset($_POST['btn-simpan'])) {
                       username = '$username', 
                       role = '$role', 
                       password = '$password', 
-                      salt = '$salt', 
-                      outlet_id = '$id_outlet' 
+                      salt = '$salt' 
                   WHERE id_user = '$id_user'";
     } else {
         $query = "UPDATE user 
                   SET nama_user = '$nama', 
                       username = '$username', 
-                      role = '$role', 
-                      outlet_id = '$id_outlet' 
+                      role = '$role' 
                   WHERE id_user = '$id_user'";
     }
 
@@ -107,23 +98,13 @@ require 'header.php';
                                 <div class="form-group">
                                     <label for="defaultSelect">Role</label>
                                     <select name="role" class="form-control form-control" id="defaultSelect">
-                                        <?php foreach ($role as $key) : ?>
-                                            <?php if ($key == $edit['role']) : ?>
-                                                <option value="<?= $key ?>" selected><?= $key ?></option>
+                                        <?php while ($roleRow = mysqli_fetch_array($roleResult)) : ?>
+                                            <?php if ($roleRow['role'] == $edit['role']) : ?>
+                                                <option value="<?= $roleRow['role'] ?>" selected><?= ucfirst($roleRow['role']) ?></option>
                                             <?php else : ?>
-                                                <option value="<?= $key ?>"><?= ucfirst($key) ?></option>
+                                                <option value="<?= $roleRow['role'] ?>"><?= ucfirst($roleRow['role']) ?></option>
                                             <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="defaultSelect">Pilih Outlet</label>
-                                    <select name="id_outlet" class="form-control form-control" id="defaultSelect">
-                                        <?php while ($outlet = mysqli_fetch_array($outlet_result)) { ?>
-                                            <option value="<?= $outlet['id_outlet']; ?>" <?= ($outlet['id_outlet'] == $edit['outlet_id']) ? 'selected' : ''; ?>>
-                                                <?= $outlet['nama_outlet']; ?>
-                                            </option>
-                                        <?php } ?>
+                                        <?php endwhile; ?>
                                     </select>
                                 </div>
                                 <input type="hidden" name="id_user" value="<?= $edit['id_user']; ?>">

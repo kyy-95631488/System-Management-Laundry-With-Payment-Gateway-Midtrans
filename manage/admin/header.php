@@ -130,11 +130,9 @@
                                 <span>
                                     <?= $_SESSION['username']; ?>
                                     <span class="user-level"><?php if ($_SESSION['role'] == 'admin') {
-                                                                    echo "Administrator";
-                                                                } else if ($_SESSION['role'] == 'kasir') {
-                                                                    echo "Kasir";
-                                                                } else {
-                                                                    echo "Owner";
+                                                                    echo "Admin";
+                                                                } else if ($_SESSION['role'] == 'user') {
+                                                                    echo "User";
                                                                 } ?></span>
                                 </span>
                             </a>
@@ -172,14 +170,6 @@
                             <a href="pengguna.php">
                                 <i class="fas fa-users-cog"></i>
                                 <p>Pengguna</p>
-                            </a>
-                        </li>
-                        <li class="nav-item <?php if ($title == 'Data Outlet') {
-                                                echo 'active';
-                                            } ?>"">
-                            <a href=" outlet.php">
-                            <i class="fas fa-shopping-basket"></i>
-                            <p>Outlet</p>
                             </a>
                         </li>
                         <li class="nav-item <?php if ($title == 'Data Paket') {

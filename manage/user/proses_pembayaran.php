@@ -28,12 +28,11 @@
     }
 
     // Ambil harga dan outlet_id dari database
-    $query = "SELECT harga, outlet_id, id_paket FROM paket_cuci WHERE nama_paket = '" . mysqli_real_escape_string($conn, $paket) . "' LIMIT 1";
+    $query = "SELECT harga, id_paket FROM paket_cuci WHERE nama_paket = '" . mysqli_real_escape_string($conn, $paket) . "' LIMIT 1";
     $result = mysqli_query($conn, $query);
     if (mysqli_num_rows($result) > 0) {
         $row = mysqli_fetch_assoc($result);
         $harga = (int)$row['harga'];
-        $outlet_id = $row['outlet_id']; // ID Outlet
         $id_paket = $row['id_paket']; // ID Paket
     } else {
         echo "<p>Data paket tidak ditemukan.</p>";
@@ -64,10 +63,10 @@
     // Simpan data transaksi ke database
     $queryInsert = "
         INSERT INTO transaksi (
-            outlet_id, kode_invoice, id_pelanggan, tgl, batas_waktu, tgl_pembayaran,
+            id_paket, kode_invoice, id_pelanggan, tgl, batas_waktu, tgl_pembayaran,
             biaya_tambahan, diskon, pajak, status, status_bayar, id_user
         ) VALUES (
-            '$outlet_id', '$kode_invoice', '$id_pelanggan', '$tgl', '$batas_waktu', '$tgl_pembayaran',
+            '$id_paket', '$kode_invoice', '$id_pelanggan', '$tgl', '$batas_waktu', '$tgl_pembayaran',
             0, 0, 0, '$status', '$status_bayar', '$id_user'
         )
     ";

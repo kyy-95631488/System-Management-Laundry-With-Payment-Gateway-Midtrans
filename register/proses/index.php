@@ -33,9 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Hash password with SHA-512 and the salt
     $hashed_password = hash('sha512', $password . $salt);
 
-    // Set default role and outlet_id
+    // Set default role
     $role = 'user';
-    $outlet_id = null;
 
     // Check if username or email already exists
     $checkUsernameQuery = "SELECT * FROM user WHERE username = '$username' OR email = '$email'";
@@ -46,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     } else {
         // Insert user into the database, storing the salt along with the hash
-        $insertQuery = "INSERT INTO user (nama_user, username, email, password, salt, outlet_id, role) 
-                        VALUES ('$full_name', '$username', '$email', '$hashed_password', '$salt', '$outlet_id', '$role')";
+        $insertQuery = "INSERT INTO user (nama_user, username, email, password, salt, role) 
+                        VALUES ('$full_name', '$username', '$email', '$hashed_password', '$salt', '$role')";
 
         if (mysqli_query($conn, $insertQuery)) {
             header("Location: ../?message=Registration successful, please login&status=success");

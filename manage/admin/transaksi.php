@@ -1,7 +1,8 @@
 <?php
 require 'koneksi.php'; // Session already started in koneksi.php
 
-if (!isset($_SESSION['outlet_id'])) {
+// Check if user role is not admin
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
     echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
     echo "<script>
         document.addEventListener('DOMContentLoaded', function() {

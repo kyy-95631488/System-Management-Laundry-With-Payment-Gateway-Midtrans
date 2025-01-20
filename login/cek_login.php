@@ -39,7 +39,6 @@ if ($stmt) {
             $_SESSION['role'] = $data['role'];
             $_SESSION['username'] = $data['username'];
             $_SESSION['user_id'] = $data['id_user'];
-            $_SESSION['outlet_id'] = $data['outlet_id'];
 
             // Redirect based on role
             if ($data['role'] == 'admin') {

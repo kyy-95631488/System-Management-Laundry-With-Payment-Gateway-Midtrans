@@ -2,16 +2,12 @@
 $title = 'Tambah Data Paket';
 require 'koneksi.php';
 
-$query = "SELECT * FROM outlet";
-$data = mysqli_query($conn, $query);
-
 if (isset($_POST['btn-simpan'])) {
     $nama = $_POST['nama_paket'];
     $jenis = $_POST['jenis_paket'];
     $harga = $_POST['harga'];
-    $id_outlet = $_POST['outlet_id'];
 
-    $query = "INSERT INTO paket_cuci (nama_paket, jenis_paket, harga, outlet_id) values ('$nama', '$jenis', '$harga', '$id_outlet')";
+    $query = "INSERT INTO paket_cuci (nama_paket, jenis_paket, harga) values ('$nama', '$jenis', '$harga')";
     $insert = mysqli_query($conn, $query);
     if ($insert == 1) {
         $_SESSION['msg'] = 'Berhasil tambah paket baru';
@@ -22,7 +18,7 @@ if (isset($_POST['btn-simpan'])) {
     }
 }
 
-require 'header.php'
+require 'header.php';
 ?>
 <div class="content">
     <div class="page-inner">
@@ -77,17 +73,8 @@ require 'header.php'
                                     <input type="text" class="form-control" name="harga" aria-describedby="basic-addon1">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="defaultSelect">Pilih Outlet</label>
-                                <select name="outlet_id" class="form-control form-control" id="defaultSelect">
-                                    <?php while ($key = mysqli_fetch_array($data)) { ?>
-                                        <option value="<?= $key['id_outlet']; ?>"><?= $key['nama_outlet']; ?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
                             <div class="card-action">
                                 <button type="submit" name="btn-simpan" class="btn btn-success">Submit</button>
-                                <!-- <button class="btn btn-danger">Cancel</button> -->
                                 <a href="javascript:void(0)" onclick="window.history.back();" class="btn btn-danger">Batal</a>
                             </div>
                     </form>

@@ -16,9 +16,8 @@ if (isset($_POST['btn-simpan'])) {
     $nama = $_POST['nama_paket'];
     $jenis = $_POST['jenis_paket'];
     $harga = $_POST['harga'];
-    $id_outlet = $_POST['outlet_id'];
 
-    $query = "UPDATE paket_cuci SET nama_paket = '$nama', jenis_paket = '$jenis', harga = '$harga', outlet_id = '$id_outlet' WHERE id_paket = '$id'";
+    $query = "UPDATE paket_cuci SET nama_paket = '$nama', jenis_paket = '$jenis', harga = '$harga' WHERE id_paket = '$id'";
     $update = mysqli_query($conn, $query);
     if ($update == 1) {
         $_SESSION['msg'] = 'Berhasil mengubah data';
@@ -84,29 +83,6 @@ require 'header.php';
                                         </div>
                                         <input type="text" class="form-control" name="harga" aria-describedby="basic-addon1" value="<?= $edit['harga']; ?>">
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="defaultSelect">Pilih Outlet</label>
-                                    <?php
-                                    function ambildata($conn, $query)
-                                    {
-                                        $data = mysqli_query($conn, $query);
-                                        if (mysqli_num_rows($data) > 0) {
-                                            while ($row = mysqli_fetch_assoc($data)) {
-                                                $hasil[] = $row;
-                                            }
-                                            return $hasil;
-                                        }
-                                        return [];
-                                    }
-                                    $query2 = "SELECT * FROM outlet";
-                                    $data2 = ambildata($conn, $query2);
-                                    ?>
-                                    <select name="outlet_id" class="form-control" id="defaultSelect">
-                                        <?php foreach ($data2 as $outlet) : ?>
-                                            <option value="<?= $outlet['id_outlet'] ?>" <?= ($outlet['id_outlet'] == $edit['outlet_id']) ? 'selected' : '' ?>><?= $outlet['nama_outlet']; ?></option>
-                                        <?php endforeach ?>
-                                    </select>
                                 </div>
                                 <div class="card-action">
                                     <button type="submit" name="btn-simpan" class="btn btn-success">Submit</button>

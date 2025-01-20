@@ -2,11 +2,8 @@
 $title = 'Data Pengguna';
 require 'koneksi.php';
 
-// Query to fetch data with outlet name joined from outlet table
-$query = "SELECT u.*, o.nama_outlet 
-          FROM user u 
-          LEFT JOIN outlet o ON u.outlet_id = o.id_outlet 
-          ORDER BY u.role DESC";
+// Query to fetch data without outlet name
+$query = "SELECT u.* FROM user u ORDER BY u.role DESC";
 
 $data = mysqli_query($conn, $query);
 
@@ -50,7 +47,6 @@ require 'header.php';
                                     <th>Nama</th>
                                     <th>Username</th>
                                     <th>Role</th>
-                                    <th>Nama Outlet</th>
                                     <th style="width: 10%;">Aksi</th>
                                 </tr>
                             </thead>
@@ -66,7 +62,6 @@ require 'header.php';
                                             <td><?= $user['nama_user']; ?></td>
                                             <td><?= $user['username']; ?></td>
                                             <td><?= $user['role']; ?></td>
-                                            <td><?= !empty($user['nama_outlet']) ? $user['nama_outlet'] : '<span class="text-danger">Belum Ditentukan</span>'; ?></td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a href="edit_pengguna.php?id=<?= $user['id_user']; ?>" type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">
@@ -80,7 +75,7 @@ require 'header.php';
                                         </tr>
                                 <?php }
                                 } else {
-                                    echo '<tr><td colspan="6" class="text-center">Tidak ada data</td></tr>';
+                                    echo '<tr><td colspan="5" class="text-center">Tidak ada data</td></tr>';
                                 }
                                 ?>
                             </tbody>

@@ -2,7 +2,7 @@
 $title = 'Data Paket';
 require 'koneksi.php';
 
-$query = "SELECT outlet.nama_outlet, paket_cuci.* FROM paket_cuci INNER JOIN outlet ON paket_cuci.outlet_id = outlet.id_outlet";
+$query = "SELECT paket_cuci.* FROM paket_cuci";
 $data = mysqli_query($conn, $query);
 
 require 'header.php';
@@ -46,7 +46,6 @@ require 'header.php';
                                     <th>Nama Paket</th>
                                     <th>Jenis</th>
                                     <th>Harga</th>
-                                    <th>Outlet</th>
                                     <th style="width: 10%">Aksi</th>
                                 </tr>
                             </thead>
@@ -62,7 +61,6 @@ require 'header.php';
                                             <td><?= $paket['nama_paket']; ?></td>
                                             <td><?= $paket['jenis_paket']; ?></td>
                                             <td><?= 'Rp ' . number_format($paket['harga']); ?></td>
-                                            <td><?= $paket['nama_outlet']; ?></td>
                                             <td>
                                                 <div class="form-button-action">
                                                     <a href="edit_paket.php?id=<?= $paket['id_paket']; ?>" type="button" data-toggle="tooltip" title="Edit" class="btn btn-link btn-primary btn-lg" data-original-title="Edit">

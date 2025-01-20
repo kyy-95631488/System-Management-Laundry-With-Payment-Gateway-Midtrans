@@ -1,11 +1,11 @@
 <?php
 
 require 'koneksi.php';
-$query = "SELECT transaksi.*, transaksi.tgl, pelanggan.nama_pelanggan, detail_transaksi.total_harga, detail_transaksi.total_bayar, outlet.nama_outlet, transaksi.biaya_tambahan, transaksi.pajak, transaksi.diskon 
-FROM transaksi 
-INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
-INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi 
-INNER JOIN outlet ON outlet.id_outlet = transaksi.outlet_id";
+$query = "SELECT transaksi.*, transaksi.tgl, pelanggan.nama_pelanggan, detail_transaksi.total_harga, detail_transaksi.total_bayar,
+              transaksi.biaya_tambahan, transaksi.pajak, transaksi.diskon 
+          FROM transaksi 
+          INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
+          INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi";
 $data = mysqli_query($conn, $query);
 
 // Set timezone to Asia/Jakarta (Indonesian time)
@@ -16,6 +16,7 @@ $nama_hari = array(
     'Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'
 );
 ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -52,7 +53,6 @@ $nama_hari = array(
                 <th>Status</th>
                 <th>Pembayaran</th>
                 <th>Total</th>
-                <th>Outlet Pembayaran</th>
             </tr>
         </thead>
         <tbody>
@@ -76,7 +76,6 @@ $nama_hari = array(
                         <td><?= $trans['status']; ?></td>
                         <td><?= $trans['status_bayar']; ?></td>
                         <td><?= 'Rp ' . number_format($total); ?></td>
-                        <td><?= $trans['nama_outlet']; ?></td>
                     </tr>
             <?php }
             }

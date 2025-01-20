@@ -10,7 +10,13 @@ $status = [
 ];
 
 $id = $_GET['id'];
-$query = mysqli_query($conn, "SELECT transaksi.*, pelanggan.nama_pelanggan, detail_transaksi.*, outlet.nama_outlet, paket_cuci.nama_paket FROM transaksi INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi INNER JOIN outlet ON outlet.id_outlet = transaksi.outlet_id INNER JOIN paket_cuci ON paket_cuci.outlet_id = transaksi.outlet_id WHERE transaksi.id_transaksi = '$id'");
+$query = mysqli_query($conn, "SELECT transaksi.*, pelanggan.nama_pelanggan, detail_transaksi.*, paket_cuci.nama_paket 
+FROM transaksi 
+INNER JOIN pelanggan ON pelanggan.id_pelanggan = transaksi.id_pelanggan 
+INNER JOIN detail_transaksi ON detail_transaksi.id_transaksi = transaksi.id_transaksi 
+INNER JOIN paket_cuci ON paket_cuci.id_paket = transaksi.id_paket 
+WHERE transaksi.id_transaksi = '$id'");
+
 $data = mysqli_fetch_assoc($query);
 
 // Initialize variables
@@ -84,10 +90,6 @@ require 'header.php';
                             <div class="form-group">
                                 <label for="largeInput">Kode Invoice</label>
                                 <input type="text" name="kode_invoice" class="form-control form-control" id="defaultInput" value="<?= $data['kode_invoice']; ?>" readonly>
-                            </div>
-                            <div class="form-group">
-                                <label for="largeInput">Outlet</label>
-                                <input type="text" name="" class="form-control form-control" id="defaultInput" value="<?= $data['nama_outlet']; ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label for="largeInput">Pelanggan</label>

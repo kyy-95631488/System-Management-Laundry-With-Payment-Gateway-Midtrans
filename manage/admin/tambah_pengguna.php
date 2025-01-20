@@ -2,18 +2,15 @@
 $title = 'Tambah Data Pengguna';
 require 'koneksi.php';
 
-$outlet = mysqli_query($conn, "SELECT * FROM outlet");
 if (isset($_POST['btn-simpan'])) {
     $nama = $_POST['nama_user'];
     $username = $_POST['username'];
     $password = md5($_POST['password']);
     $role = $_POST['role'];
-    $id_outlet = $_POST['id_outlet'];
-    $query = "INSERT INTO user (nama_user, username, password, role, outlet_id) values ('$nama', '$username', '$password', '$role', '$id_outlet')";
+    $query = "INSERT INTO user (nama_user, username, password, role) values ('$nama', '$username', '$password', '$role')";
 
     $insert = mysqli_query($conn, $query);
     if ($insert == 1) {
-
         $_SESSION['msg'] = 'Berhasil menambahkan ' . $role . ' baru';
         header('location:pengguna.php');
     } else {
@@ -72,16 +69,7 @@ require 'header.php';
                                 <label for="defaultSelect">Role</label>
                                 <select name="role" class="form-control form-control" id="defaultSelect">
                                     <option value="admin">Admin</option>
-                                    <option value="kasir">Kasir</option>
-                                    <option value="owner">Owner</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="defaultSelect">Pilih Outlet</label>
-                                <select name="id_outlet" class="form-control form-control" id="defaultSelect">
-                                    <?php while ($key = mysqli_fetch_array($outlet)) { ?>
-                                        <option value="<?= $key['id_outlet']; ?>"><?= $key['nama_outlet']; ?></option>
-                                    <?php } ?>
+                                    <option value="user">User</option>
                                 </select>
                             </div>
                             <div class="card-action">

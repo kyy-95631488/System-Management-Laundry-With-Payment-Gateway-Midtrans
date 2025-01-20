@@ -148,7 +148,7 @@
 
 <body>
     <div class="limiter">
-        <div class="container-login100" style="background-image: url('../manage/assets/login/images/mikada-laundry-bg01.png');">
+        <div class="container-login100" style="background-image: url('../asset/img/bg-mikadalaundry-login.jpg');">
             <div class="wrap-login100 p-t-30 p-b-50">
                 <!-- Back Button -->
                 <div class="back-button">
