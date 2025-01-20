@@ -1,10 +1,10 @@
 <?php
     date_default_timezone_set('Asia/Jakarta');
-    require_once '../../vendor/autoload.php'; // Pastikan path ke autoload benar
+    require_once '../../vendor/autoload.php';
 
     // Set konfigurasi Midtrans
-    \Midtrans\Config::$serverKey = 'SB-Mid-server-if2r_gpnCp6LSSfzF8bibmAr'; // Ganti dengan Server Key Anda
-    \Midtrans\Config::$isProduction = false; // Ubah menjadi true jika di production
+    \Midtrans\Config::$serverKey = 'SB-Mid-server-if2r_gpnCp6LSSfzF8bibmAr';
+    \Midtrans\Config::$isProduction = false;
     \Midtrans\Config::$isSanitized = true;
     \Midtrans\Config::$is3ds = true;
 
